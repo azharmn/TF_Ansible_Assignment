@@ -10,4 +10,5 @@
     - name: Enable Netdata to start on boot
       systemd:
         name: netdata
+        state: started
         enabled: yes
