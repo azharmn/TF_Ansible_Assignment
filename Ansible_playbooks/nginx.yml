@@ -1,0 +1,30 @@
+---
+- name: Install and configure Nginx
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Nginx package
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start & Enable Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copy Nginx configuration file
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart Nginx service
+      systemd:
+        name: nginx
+        state: restarted
+

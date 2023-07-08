@@ -1,0 +1,13 @@
+---
+- name: Install and configure Netdata
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Build and install Netdata
+      shell: curl https://my-netdata.io/kickstart.sh > /tmp/netdata-kickstart.sh && sh /tmp/netdata-kickstart.sh --non-interactive
+
+    - name: Enable Netdata to start on boot
+      systemd:
+        name: netdata
+        enabled: yes
